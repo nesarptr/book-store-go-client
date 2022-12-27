@@ -1,0 +1,40 @@
+.input {
+  width: 76%;
+  color: rgb(38, 50, 56);
+  font-weight: 700;
+  font-size: 0.875rem;
+  letter-spacing: 1px;
+  background: rgba(89, 89, 89, 0.04);
+  padding: 0.625rem 1.25rem;
+  border: none;
+  border-radius: 1.25rem;
+  outline: none;
+  box-sizing: border-box;
+  border: 0.125rem solid rgba(0, 0, 0, 0.02);
+  margin-left: 2.875rem;
+  text-align: center;
+  margin-bottom: 1.688rem;
+  font-family: "Ubuntu", sans-serif;
+  text-align: center;
+}
+
+.input:focus {
+  border: 0.125rem solid rgba(0, 0, 0, 0.18) !important;
+}
+
+.submit {
+  cursor: pointer;
+  border-radius: 5rem;
+  color: #fff;
+  background: linear-gradient(to right, #9c27b0, #e040fb);
+  border: 0;
+  padding-left: 2.5rem;
+  padding-right: 2.5rem;
+  padding-bottom: 0.625rem;
+  padding-top: 0.625rem;
+  font-family: "Ubuntu", sans-serif;
+  margin-left: 35%;
+  font-size: 0.813rem;
+  box-shadow: 0 0 1.25rem 1px rgba(0, 0, 0, 0.04);
+  text-align: center;
+}
