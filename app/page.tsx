@@ -1,5 +1,7 @@
+"use client";
 import Image from "next/image";
 import { Inter } from "@next/font/google";
+import { useRef } from "react";
 import Login from "../components/auth/Login";
 
 import styles from "./page.module.css";
@@ -9,7 +11,10 @@ const inter = Inter({ subsets: ["latin"] });
 export default function Home() {
   return (
     <main className={styles.main}>
-      <Login />
+      <form>
+        <input type="file" name="file" id="file" />
+        <button type="submit">Submit</button>
+      </form>
       {/* <div className={styles.description}>
         <p>
           Get started by editing&nbsp;
