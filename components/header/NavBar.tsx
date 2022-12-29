@@ -5,7 +5,7 @@ export default function NavBar() {
     <nav>
       <ul>
         <li>Home</li>
-        <li>Products</li>
+        <li>Books</li>
         <li>Dashboard</li>
         <li>Cart</li>
         <li>Notification</li>

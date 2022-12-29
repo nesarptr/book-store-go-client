@@ -6,8 +6,8 @@ export default function Dashboard() {
     <>
       <aside>
         <ul>
-          <li>Add Projuct</li>
-          <li>Manage Product</li>
+          <li>Add Book</li>
+          <li>Manage Book</li>
           <li>My Orders</li>
         </ul>
       </aside>

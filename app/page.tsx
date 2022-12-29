@@ -3,6 +3,7 @@ import Image from "next/image";
 import { Inter } from "@next/font/google";
 import { useRef } from "react";
 import Login from "../components/auth/Login";
+import ImageForm from "../components/Dummy/Image";
 
 import styles from "./page.module.css";
 
@@ -11,10 +12,11 @@ const inter = Inter({ subsets: ["latin"] });
 export default function Home() {
   return (
     <main className={styles.main}>
-      <form>
+      <ImageForm />
+      {/* <form>
         <input type="file" name="file" id="file" />
         <button type="submit">Submit</button>
-      </form>
+      </form> */}
       {/* <div className={styles.description}>
         <p>
           Get started by editing&nbsp;

@@ -7,8 +7,8 @@ export default function Hero() {
       <div>
         <h2>Bicycle Builder</h2>
         <p>
-          We Provide Best Quality Bicycle Parts. Our product `{"World's"}` best
-          product. Get the newest and most in-demand consumer bicycle parts.
+          We Provide Best Quality Bicycle Parts. Our book `{"World's"}` best
+          book. Get the newest and most in-demand consumer bicycle parts.
         </p>
         <button type="button">Get Started</button>
       </div>
