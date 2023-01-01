@@ -1,6 +1,13 @@
-import React from "react";
-import Book from "./Book";
+import { useAppSelector } from "../../store/hook";
+import BookItem from "./BookItem";
 
 export default function BookList() {
-  return <Book />;
+  const books = useAppSelector((state) => state.book);
+  return (
+    <section>
+      {books.map((book) => (
+        <BookItem key={book.id} {...book} />
+      ))}
+    </section>
+  );
 }

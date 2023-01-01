@@ -1,4 +1,5 @@
-import React from "react";
+import Link from "next/link";
+
 import LoginForm from "./LoginForm";
 
 import styles from "./Login.module.css";
@@ -8,7 +9,10 @@ export default function Login() {
     <div className={styles.main}>
       <p className={styles.signu}>Sign in</p>
       <LoginForm />
-      <p className={styles.signb}>Forgot Password? | Sign up</p>
+      <div className={styles.signb}>
+        <Link href={"/forget"}>Forgot Password?</Link> |
+        <Link href={"/signup"}>Sign up</Link>
+      </div>
     </div>
   );
 }

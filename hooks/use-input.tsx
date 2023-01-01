@@ -1,9 +1,22 @@
+"use client";
+
 import React from "react";
 
 const initialInputState = {
   value: "",
   isTouched: false,
 };
+
+type hookFnRt = {
+  value: string;
+  isValid: boolean;
+  hasError: boolean;
+  valueChangeHandler: React.ChangeEventHandler<HTMLInputElement>;
+  inputBlurHandler: React.FocusEventHandler<HTMLInputElement>;
+  reset: () => void;
+};
+
+export type hookFn = (validate: validateFunc) => hookFnRt;
 
 type ACTIONTYPE =
   | { type: "INPUT"; value: string }
@@ -43,9 +56,7 @@ const useInput = (validateValue: validateFunc) => {
     dispatch({ type: "INPUT", value: event.target.value });
   };
 
-  const inputBlurHandler: React.FocusEventHandler<HTMLInputElement> = (
-    event
-  ) => {
+  const inputBlurHandler: React.FocusEventHandler<HTMLInputElement> = () => {
     dispatch({ type: "BLUR" });
   };
 

@@ -1,5 +1,7 @@
-import React from "react";
+import styles from "./Footer.module.css";
 
 export default function Footer() {
-  return <footer>© Bicycle Builder 2022 all Rights Reserved</footer>;
+  return (
+    <footer className={styles.footer}>© Book store all Rights Reserved</footer>
+  );
 }

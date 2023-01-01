@@ -1,0 +1,78 @@
+.hero {
+  width: 80%;
+  margin: 6rem auto 4rem;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+
+.hero > div {
+  width: 50%;
+}
+
+.hero div:first-of-type {
+  padding-right: 5rem;
+}
+
+.hero h2 {
+  font-size: 3rem;
+  font-weight: 700;
+  line-height: 1rem;
+  letter-spacing: 1px;
+  margin-bottom: 3rem;
+}
+
+.hero p {
+  font-size: 1.5rem;
+  font-weight: 700;
+  margin-bottom: 3rem;
+}
+
+.hero button {
+  background-color: rgba(255, 255, 255, 0.6);
+  font-weight: 700;
+  font-size: 1.5rem;
+  color: blueviolet;
+  border-radius: 1.5rem;
+  padding: 1.5rem;
+  border-color: rgba(0, 0, 0, 0.7);
+  cursor: pointer;
+  transition: all 0.2s ease-in;
+}
+
+.hero button:hover,
+.hero button:active {
+  background-color: blueviolet;
+  color: rgba(255, 255, 255, 0.6);
+  border-color: rgb(255, 255, 255, 0.2);
+}
+
+.hero > div > img {
+  padding-left: 1rem;
+  object-fit: cover;
+  border-radius: 1.2rem;
+  box-shadow: rgba(0, 0, 0, 0.35) 0px 5px 15px;
+}
+
+@media screen and (max-width: 800px) {
+  .hero {
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    margin: 6rem auto 2rem;
+  }
+
+  .hero h2 {
+    font-size: 2.2rem;
+  }
+
+  .hero > div {
+    width: 100%;
+  }
+
+  .hero > div > img {
+    padding-left: 0;
+    margin-top: 5rem;
+    width: 40rem;
+  }
+}

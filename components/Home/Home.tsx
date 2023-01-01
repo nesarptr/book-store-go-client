@@ -1,14 +1,19 @@
 import React from "react";
-import Header from "../header/Header";
-import Hero from "./Hero";
-import Footer from "./Footer";
 
-export default function Home() {
+import Header from "../header/Header";
+import Footer from "./Footer";
+import { useAppSelector, useAppDispatch } from "../../store/hook";
+
+import styles from "./Home.module.css";
+
+export default function Home({ children }: { children: React.ReactNode }) {
+  const isModalOpen = useAppSelector((state) => state.ui);
   return (
-    <main>
+    <body>
+      {isModalOpen && <div className={styles.backdrop}></div>}
       <Header />
-      <Hero />
+      <main>{children}</main>
       <Footer />
-    </main>
+    </body>
   );
 }

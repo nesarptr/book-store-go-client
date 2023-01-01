@@ -1,0 +1,35 @@
+.header {
+  padding: 0 2rem;
+  width: 100%;
+  background-color: rgb(96, 40, 237);
+  font-size: 1.8rem;
+  font-weight: 700;
+  line-height: 1.5rem;
+  position: sticky;
+  height: 5rem;
+  box-shadow: 2px 2px 2px 1px rgba(0, 0, 0, 0.2);
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.header > a {
+  color: yellow;
+  font-weight: 900;
+  width: 3%;
+}
+
+@media screen and (max-width: 800px) {
+  .header > a {
+    color: yellow;
+    font-weight: 900;
+    width: 10%;
+  }
+}
+@media screen and (max-width: 450px) {
+  .header > a {
+    color: yellow;
+    font-weight: 900;
+    width: 20%;
+  }
+}

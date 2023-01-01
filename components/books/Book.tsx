@@ -1,5 +1,5 @@
-import React from "react";
+import { bookProp } from "./BookItem";
 
-export default function Book() {
-  return <div></div>;
+export default function Book(props: bookProp) {
+  return <div>Book</div>;
 }
