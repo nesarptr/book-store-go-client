@@ -1,7 +1,7 @@
-import React from 'react'
+"use client";
+
+import BookList from "../../components/books/BookList";
 
 export default function Page() {
-  return (
-    <div>page</div>
-  )
+  return <BookList />;
 }

@@ -14,6 +14,9 @@ const bookSlice = createSlice({
   name: "book",
   initialState,
   reducers: {
+    addBooks: (state, { payload: books }: PayloadAction<Book[]>) => {
+      state.unshift(...books);
+    },
     addBook: (state, { payload: book }: PayloadAction<Book>) => {
       state.unshift(book);
     },
@@ -29,6 +32,6 @@ const bookSlice = createSlice({
   },
 });
 
-export const { addBook, deleteBook, updateBook } = bookSlice.actions;
+export const { addBook, addBooks, deleteBook, updateBook } = bookSlice.actions;
 
 export default bookSlice.reducer;

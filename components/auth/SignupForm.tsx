@@ -41,33 +41,16 @@ export default function SignupForm() {
 
   const submitHandler = handleSubmit(async (user) => {
     try {
-      const data = await axios.get("");
+      const data = await axios.get("https://dummyjson.com/products/");
       console.log(data.status);
       console.log(data.headers);
       console.log(data.config);
-      console.log(data);
+      console.log(data.data);
     } catch (error) {
       console.log(error);
     }
     // reset();
   });
-
-  // const submitHandler: FormEventHandler<HTMLFormElement> = async (event) => {
-  //   event.preventDefault();
-  //   if (!formIsValid) return;
-  //   const body = {
-  //     url: "http://localhost:3000/",
-  //     name: firstName + " " + lastName,
-  //     email,
-  //     password,
-  //   };
-
-  //   resetFirstName();
-  //   resetLastName();
-  //   resetEmail();
-  //   resetPassword();
-  //   resetcConfirmPassword();
-  // };
 
   return (
     <form className={styles.form} onSubmit={submitHandler}>

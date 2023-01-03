@@ -1,0 +1,21 @@
+.main {
+  width: 80%;
+  margin: 1.5rem auto;
+  padding-top: 4rem;
+}
+
+.main > ul {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 3.5rem;
+}
+
+@media screen and (max-width: 800px) {
+  .main {
+    width: 90%;
+    padding-top: 2rem;
+  }
+  .main > ul {
+    grid-template-columns: 1fr;
+  }
+}
