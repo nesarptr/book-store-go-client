@@ -1,11 +1,19 @@
 import Image from "next/image";
 import Link from "next/link";
+import { MouseEventHandler } from "react";
 
 import { Book } from "../../store/book-slice";
+import { addToCart } from "../../store/cartSlice";
+import { useAppDispatch } from "../../store/hook";
 
 import styles from "./BookItem.module.css";
 
 export default function BookItem(book: Book) {
+  const dispatch = useAppDispatch();
+  const addToCartHandler: MouseEventHandler<HTMLButtonElement> = () => {
+    dispatch(addToCart(book));
+  };
+
   return (
     <li className={styles.li}>
       <div>
@@ -17,7 +25,9 @@ export default function BookItem(book: Book) {
             book.description.length > 35 ? " ..." : ""
           }`}</p>
         </div>
-        <button type="button">Add to cart</button>
+        <button type="button" onClick={addToCartHandler}>
+          Add to cart
+        </button>
         <Link href={`/books/${book.id}`}>
           <button type="button">Details</button>
         </Link>
