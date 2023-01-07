@@ -1,9 +1,14 @@
 "use client";
 
+import { useRouter } from "next/navigation";
+import Cookies from "js-cookie";
+import axios from "../../axiosConfig";
 import { useForm } from "react-hook-form";
 import { yupResolver } from "@hookform/resolvers/yup";
 import * as yup from "yup";
 
+import { useAppSelector, useAppDispatch } from "../../store/hook";
+import { login } from "../../store/auth-slice";
 import LineError from "../error/LineError";
 
 import styles from "./LoginForm.module.css";
@@ -21,6 +26,9 @@ const loginFormSchema = yup
   .required("invalid value");
 
 export default function LoginForm() {
+  const router = useRouter();
+  const dispatch = useAppDispatch();
+
   const {
     register,
     reset,
@@ -28,13 +36,32 @@ export default function LoginForm() {
     formState: { errors },
   } = useForm({ resolver: yupResolver(loginFormSchema) });
 
-  const submitHandler = handleSubmit((data) => {
-    console.log(data);
-    reset();
+  const loginHandler = handleSubmit(async (userData) => {
+    try {
+      const res = await axios.post("/auth/login", {
+        email: userData.email,
+        password: userData.password,
+      });
+      Cookies.set("jwtoken", res.data.data.accessToken);
+      dispatch(
+        login({
+          isAuth: true,
+          jwtoken: res.data.data.accessToken,
+          userId: res.data.data.userId,
+          userEmail: userData.email,
+        })
+      );
+      router.push("/");
+    } catch (error) {
+      console.log(error);
+      // router.push("/error");
+    } finally {
+      reset();
+    }
   });
 
   return (
-    <form className={styles.form} onSubmit={submitHandler}>
+    <form className={styles.form} onSubmit={loginHandler}>
       {errors.email?.message && (
         <LineError message={errors.email.message as string} />
       )}

@@ -11,13 +11,22 @@ export default function Cart() {
   );
 
   return (
-    <main className={styles.main}>
-      <h2>Your Book Cart</h2>
+    <main className={styles.cart}>
+      <h2>{books.length > 0 ? "Your Book Cart" : "Your cart is Empty"}</h2>
       <ul>
         {books.map((book) => (
-          <CartItem key={book.book.id} book={book} total={totalPrice} />
+          <CartItem key={book.book.id} {...book} />
         ))}
       </ul>
+      {books.length > 0 && (
+        <div className={styles.div}>
+          <div>
+            <p>Total Price</p>
+            <p>${totalPrice}</p>
+          </div>
+          <button type="button">Order</button>
+        </div>
+      )}
     </main>
   );
 }

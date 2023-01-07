@@ -3,15 +3,17 @@ import { createSlice, PayloadAction } from "@reduxjs/toolkit";
 type auth = {
   userEmail?: string;
   userId: string;
-  token: string;
+  jwtoken: string;
+  varifyToken?: string;
   isAuth: boolean;
 };
 
 const initialState: auth = {
-  token: "",
+  jwtoken: "",
   isAuth: false,
   userId: "",
   userEmail: "",
+  varifyToken: "",
 };
 
 const authSlice = createSlice({
@@ -19,18 +21,25 @@ const authSlice = createSlice({
   initialState,
   reducers: {
     login: (state, { payload }: PayloadAction<auth>) => {
-      (state.token = payload.token), (state.isAuth = payload.isAuth);
+      (state.jwtoken = payload.jwtoken), (state.isAuth = payload.isAuth);
       state.userId = payload.userId;
       state.userEmail = payload.userEmail || "";
     },
     logout: (state) => {
-      (state.isAuth = false), (state.token = "");
+      (state.isAuth = false), (state.jwtoken = "");
       state.userId = "";
       state.userEmail = "";
+    },
+    token: (
+      state,
+      { payload }: PayloadAction<{ token: string; id: string }>
+    ) => {
+      state.varifyToken = payload.token;
+      state.userId = payload.id;
     },
   },
 });
 
-export const { login, logout } = authSlice.actions;
+export const { login, logout, token } = authSlice.actions;
 
 export default authSlice.reducer;

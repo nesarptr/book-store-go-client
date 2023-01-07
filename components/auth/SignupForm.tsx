@@ -1,10 +1,11 @@
 "use client";
-
-import axios from "axios";
+import type { AxiosError } from "axios";
+import { useRouter, notFound } from "next/navigation";
 import { useForm } from "react-hook-form";
 import { yupResolver } from "@hookform/resolvers/yup";
 import * as yup from "yup";
 
+import axios from "../../axiosConfig";
 import LineError from "../error/LineError";
 
 import styles from "./SignupFrom.module.css";
@@ -32,6 +33,7 @@ const signupFormSchema = yup
   .required("invalid value");
 
 export default function SignupForm() {
+  const router = useRouter();
   const {
     register,
     reset,
@@ -41,15 +43,20 @@ export default function SignupForm() {
 
   const submitHandler = handleSubmit(async (user) => {
     try {
-      const data = await axios.get("https://dummyjson.com/products/");
-      console.log(data.status);
-      console.log(data.headers);
-      console.log(data.config);
-      console.log(data.data);
-    } catch (error) {
-      console.log(error);
+      await axios.post("/auth/signup", {
+        url: "http://localhost:3000/varified/",
+        name: user.firstName + " " + user.lastName,
+        email: user.email,
+        password: user.password,
+      });
+      router.push("/varify");
+    } catch (err) {
+      const error = err as AxiosError<{ message: string }>;
+      console.log(error.response?.data.message);
+      router.push("/error");
+    } finally {
+      reset();
     }
-    // reset();
   });
 
   return (

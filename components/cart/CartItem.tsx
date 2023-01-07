@@ -5,25 +5,17 @@ import { BookCart, addToCart, removeFromCart } from "../../store/cartSlice";
 import styles from "./CartItem.module.css";
 import { MouseEventHandler } from "react";
 
-export default function CartItem({
-  book,
-  total,
-}: {
-  book: BookCart;
-  total: number;
-}) {
+export default function CartItem({ book, quantity }: BookCart) {
   const dispatch = useAppDispatch();
 
-  const { book: cartBook, quantity } = book;
-
-  const { name: title, id, price } = cartBook;
+  const { name: title, id, price } = book;
 
   const removeItemHandler: MouseEventHandler<HTMLButtonElement> = () => {
     dispatch(removeFromCart(id));
   };
 
   const addItemHandler: MouseEventHandler<HTMLButtonElement> = () => {
-    dispatch(addToCart(book.book));
+    dispatch(addToCart(book));
   };
 
   return (
@@ -31,7 +23,7 @@ export default function CartItem({
       <header>
         <h3>{title}</h3>
         <div className={styles.price}>
-          ${total.toFixed(2)}{" "}
+          ${Number(+price * quantity).toFixed(2)}{" "}
           <span className={styles.itemprice}>
             (${Number(price).toFixed(2)}/item)
           </span>

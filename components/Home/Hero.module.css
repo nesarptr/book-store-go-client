@@ -51,6 +51,7 @@
   padding-left: 1rem;
   object-fit: cover;
   border-radius: 1.2rem;
+  height: auto;
   box-shadow: rgba(0, 0, 0, 0.35) 0px 5px 15px;
 }
 

@@ -10,7 +10,6 @@ export default function Login() {
       <p className={styles.signu}>Sign in</p>
       <LoginForm />
       <div className={styles.signb}>
-        <Link href={"/forget"}>Forgot Password?</Link> |
         <Link href={"/signup"}>Sign up</Link>
       </div>
     </div>
