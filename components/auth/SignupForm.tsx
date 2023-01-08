@@ -1,6 +1,6 @@
 "use client";
 import type { AxiosError } from "axios";
-import { useRouter, notFound } from "next/navigation";
+import { useRouter } from "next/navigation";
 import { useForm } from "react-hook-form";
 import { yupResolver } from "@hookform/resolvers/yup";
 import * as yup from "yup";
@@ -53,7 +53,7 @@ export default function SignupForm() {
     } catch (err) {
       const error = err as AxiosError<{ message: string }>;
       console.log(error.response?.data.message);
-      router.push("/error");
+      // router.push("/error");
     } finally {
       reset();
     }

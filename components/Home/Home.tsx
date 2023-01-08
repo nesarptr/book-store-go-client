@@ -1,3 +1,4 @@
+import { useRouter } from "next/navigation";
 import Cookies from "js-cookie";
 
 import axios from "../../axiosConfig";
@@ -12,8 +13,9 @@ import { useEffect } from "react";
 import { AxiosError } from "axios";
 
 export default function Home({ children }: { children: React.ReactNode }) {
+  const router = useRouter();
   const dispatch = useAppDispatch();
-  const books = useAppSelector((state) => state.book);
+  const userId = useAppSelector((state) => state.auth.userId);
 
   useEffect(() => {
     (async () => {
@@ -28,13 +30,12 @@ export default function Home({ children }: { children: React.ReactNode }) {
       );
     })().catch((err) => {
       const error = err as AxiosError;
-      if (error.status === 401) {
-        Cookies.remove("jwtoken");
+      if (error.response?.status === 401) {
+        router.push("/login");
       }
-      console.log(err);
     });
     return () => {};
-  }, [dispatch]);
+  }, [dispatch, router]);
 
   useEffect(() => {
     (async () => {
@@ -43,17 +44,23 @@ export default function Home({ children }: { children: React.ReactNode }) {
       const books = res.data.books.map((book: any) => {
         return {
           id: book._id,
+          owner: book.owner,
           name: book.name,
           price: book.price,
-          imgURL: book.imgURL,
+          imgURL: `https://manage-inventory.onrender.com/${book.imgURL}`,
           description: book.description,
         };
       });
       dispatch(addBooks(books));
-    })().catch((err) => console.log(err));
+    })().catch((err) => {
+      const error = err as AxiosError;
+      if (error.response?.status === 401) {
+        router.push("/login");
+      }
+    });
 
     return () => {};
-  }, [dispatch, books]);
+  }, [dispatch, userId, router]);
 
   const isModalOpen = useAppSelector((state) => state.ui);
   return (

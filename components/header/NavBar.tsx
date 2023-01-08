@@ -42,7 +42,7 @@ export default function NavBar() {
                 </Link>
               </li>
               <li>
-                <Link href={"/my-orders"} title="my orders">
+                <Link href={"/orders"} title="my orders">
                   My Orders
                 </Link>
               </li>

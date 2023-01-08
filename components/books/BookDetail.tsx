@@ -10,6 +10,7 @@ import { Book } from "../../store/book-slice";
 
 export default function BookDetail({ id }: { id: string }) {
   const dispatch = useAppDispatch();
+  const userId = useAppSelector((state) => state.auth.userId);
   const book = useAppSelector((state) =>
     state.book.find((book) => book.id == id)
   );

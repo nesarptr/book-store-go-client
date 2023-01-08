@@ -1,3 +1,5 @@
+import BookList from "../books/BookList";
+
 export default function MyBooks() {
-  return <></>;
+  return <BookList shouldFilter={true} />;
 }

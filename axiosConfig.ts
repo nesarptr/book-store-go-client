@@ -1,17 +1,15 @@
-import axios, { AxiosHeaders } from "axios";
+import { NextResponse } from "next/server";
+import axios, { AxiosError, AxiosHeaders } from "axios";
 import Cookies from "js-cookie";
 
 const instance = axios.create({
   baseURL: "https://manage-inventory.onrender.com/api/v1",
 });
 
-instance.defaults.headers.post["Content-Type"] = "application/json";
-
 // Add a request interceptor
 instance.interceptors.request.use(
   function (config) {
     // Do something before request is sent
-
     const headers: AxiosHeaders = config.headers as AxiosHeaders;
 
     if (Cookies.get("jwtoken") && !headers.has("Authorization")) {
@@ -20,8 +18,19 @@ instance.interceptors.request.use(
     config.headers = headers;
     return config;
   },
-  function (error) {
+  function (error: AxiosError) {
     // Do something with request error
+    return Promise.reject(error);
+  }
+);
+
+instance.interceptors.response.use(
+  (response) => response,
+  (error) => {
+    console.log(error);
+    if (error?.response?.status === 401 || error.status === 401) {
+      Cookies.remove("jwtoken");
+    }
     return Promise.reject(error);
   }
 );
