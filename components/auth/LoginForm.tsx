@@ -7,7 +7,7 @@ import { useForm } from "react-hook-form";
 import { yupResolver } from "@hookform/resolvers/yup";
 import * as yup from "yup";
 
-import { useAppSelector, useAppDispatch } from "../../store/hook";
+import { useAppDispatch } from "../../store/hook";
 import { login } from "../../store/auth-slice";
 import LineError from "../error/LineError";
 

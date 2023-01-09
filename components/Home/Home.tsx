@@ -18,8 +18,11 @@ export default function Home({ children }: { children: React.ReactNode }) {
   const userId = useAppSelector((state) => state.auth.userId);
 
   useEffect(() => {
+    const controller = new AbortController();
     (async () => {
-      const res = await axios.get("/auth/isAuth");
+      const res = await axios.get("/auth/isAuth", {
+        signal: controller.signal,
+      });
       dispatch(
         login({
           isAuth: true,
@@ -34,12 +37,15 @@ export default function Home({ children }: { children: React.ReactNode }) {
         router.push("/login");
       }
     });
-    return () => {};
+    return () => {
+      controller.abort();
+    };
   }, [dispatch, router]);
 
   useEffect(() => {
+    const controller = new AbortController();
     (async () => {
-      const res = await axios.get("/shop/books");
+      const res = await axios.get("/shop/books", { signal: controller.signal });
       console.log(res.data);
       const books = res.data.books.map((book: any) => {
         return {
@@ -59,7 +65,9 @@ export default function Home({ children }: { children: React.ReactNode }) {
       }
     });
 
-    return () => {};
+    return () => {
+      controller.abort();
+    };
   }, [dispatch, userId, router]);
 
   const isModalOpen = useAppSelector((state) => state.ui);

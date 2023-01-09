@@ -7,36 +7,43 @@ export interface BookCart {
   quantity: number;
 }
 
-const initialState: BookCart[] = [];
+const initialState: { bookCart: BookCart[] } = {
+  bookCart: [],
+};
 
 const cartSlice = createSlice({
   name: "cart",
   initialState,
   reducers: {
+    replaceCart: (state, { payload: newCart }: PayloadAction<BookCart[]>) => {
+      state.bookCart = newCart;
+    },
     addToCart: (state, { payload: book }: PayloadAction<Book>) => {
-      const bookInd = state.findIndex((cart) => cart.book.id === book.id);
+      const bookInd = state.bookCart.findIndex(
+        (cart) => cart.book.id === book.id
+      );
       if (bookInd === -1) {
-        state.push({
+        state.bookCart.push({
           book,
           quantity: 1,
         });
       } else {
-        state[bookInd].quantity++;
+        state.bookCart[bookInd].quantity++;
       }
     },
     removeFromCart: (state, { payload: id }: PayloadAction<string>) => {
-      const bookInd = state.findIndex((cart) => cart.book.id === id);
+      const bookInd = state.bookCart.findIndex((cart) => cart.book.id === id);
       if (bookInd !== -1) {
-        if (state[bookInd].quantity > 1) {
-          state[bookInd].quantity--;
+        if (state.bookCart[bookInd].quantity > 1) {
+          state.bookCart[bookInd].quantity--;
         } else {
-          state.splice(bookInd, 1);
+          state.bookCart.splice(bookInd, 1);
         }
       }
     },
   },
 });
 
-export const { addToCart, removeFromCart } = cartSlice.actions;
+export const { replaceCart, addToCart, removeFromCart } = cartSlice.actions;
 
 export default cartSlice.reducer;

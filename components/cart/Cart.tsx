@@ -4,7 +4,7 @@ import styles from "./Cart.module.css";
 import CartItem from "./CartItem";
 
 export default function Cart() {
-  const books = useAppSelector((state) => state.cart);
+  const books = useAppSelector((state) => state.cart.bookCart);
   const totalPrice = books.reduce<number>(
     (acc, cur) => acc + +cur.book.price * cur.quantity,
     0

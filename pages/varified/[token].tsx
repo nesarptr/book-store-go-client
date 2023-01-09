@@ -1,4 +1,5 @@
 import { useRouter } from "next/router";
+import { useEffect } from "react";
 
 import axios from "../../axiosConfig";
 
@@ -9,15 +10,30 @@ export default function Page() {
     token = router.query.token as string;
   }
 
-  (async () => {
-    try {
-      await axios.put(`/auth/varify/${token}`);
-      router.push("/login");
-    } catch (error) {
-      console.log("push");
-      console.log(error);
-      router.push(`/error`);
-    }
-  })();
+  useEffect(() => {
+    const controller = new AbortController();
+
+    (async () => {
+      try {
+        await axios.put(
+          `/auth/varify/${token}`,
+          {},
+          {
+            signal: controller.signal,
+          }
+        );
+        router.push("/login");
+      } catch (error) {
+        console.log("push");
+        console.log(error);
+        router.push(`/error`);
+      }
+    })();
+
+    return () => {
+      controller.abort();
+    };
+  }, [router, token]);
+
   return <div>We are varifying your email...</div>;
 }

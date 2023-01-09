@@ -1,24 +1,50 @@
 import styles from "./CartIcon.module.css";
-
+import axios from "../../axiosConfig";
 import { useAppSelector } from "../../store/hook";
 import { useEffect, useState } from "react";
+
+let isInitial = true;
 
 export default function CartIcon() {
   const [bump, setBump] = useState(false);
 
-  const books = useAppSelector((state) => state.cart);
+  const books = useAppSelector((state) => state.cart.bookCart);
 
   useEffect(() => {
-    if (books.length === 0) {
+    if (isInitial) {
+      isInitial = false;
       return;
     }
+    const controller = new AbortController();
+
     setBump(true);
 
     const timer = setTimeout(() => {
       setBump(false);
     }, 300);
 
+    (async () => {
+      try {
+        const cart = books.map((book) => {
+          return {
+            bookId: book.book.id,
+            quantity: book.quantity,
+          };
+        });
+        await axios.post(
+          "/shop/cart",
+          { cart: cart },
+          {
+            signal: controller.signal,
+          }
+        );
+      } catch (error) {
+        console.log(error);
+      }
+    })();
+
     return () => {
+      controller.abort();
       clearTimeout(timer);
     };
   }, [books]);
