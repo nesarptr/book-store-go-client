@@ -3,14 +3,14 @@ import { configureStore } from "@reduxjs/toolkit";
 import authSlice from "./auth-slice";
 import bookSlice from "./book-slice";
 import cartSlice from "./cartSlice";
-import uiSlice from "./ui-slice";
+import orderSlice from "./order-slice";
 
 const store = configureStore({
   reducer: {
     book: bookSlice,
     auth: authSlice,
     cart: cartSlice,
-    ui: uiSlice,
+    order: orderSlice,
   },
 });
 

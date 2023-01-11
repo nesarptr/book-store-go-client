@@ -4,7 +4,13 @@ import { BookCart, addToCart, removeFromCart } from "../../store/cartSlice";
 import styles from "./CartItem.module.css";
 import { MouseEventHandler } from "react";
 
-export default function CartItem(bookCart: BookCart) {
+export default function CartItem({
+  bookCart,
+  orderMode = false,
+}: {
+  bookCart: BookCart;
+  orderMode?: boolean;
+}) {
   const dispatch = useAppDispatch();
 
   const { name: title, id, price } = bookCart.book;
@@ -32,14 +38,16 @@ export default function CartItem(bookCart: BookCart) {
         <div className={styles.quantity}>
           x <span>{bookCart.quantity}</span>
         </div>
-        <div className={styles.actions}>
-          <button type="button" onClick={removeItemHandler}>
-            -
-          </button>
-          <button type="button" onClick={addItemHandler}>
-            +
-          </button>
-        </div>
+        {!orderMode && (
+          <div className={styles.actions}>
+            <button type="button" onClick={removeItemHandler}>
+              -
+            </button>
+            <button type="button" onClick={addItemHandler}>
+              +
+            </button>
+          </div>
+        )}
       </div>
     </li>
   );

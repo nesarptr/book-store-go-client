@@ -257,6 +257,26 @@ __metadata:
   languageName: node
   linkType: hard
 
+"@stripe/react-stripe-js@npm:^1.16.3":
+  version: 1.16.3
+  resolution: "@stripe/react-stripe-js@npm:1.16.3"
+  dependencies:
+    prop-types: ^15.7.2
+  peerDependencies:
+    "@stripe/stripe-js": ^1.44.1
+    react: ^16.8.0 || ^17.0.0 || ^18.0.0
+    react-dom: ^16.8.0 || ^17.0.0 || ^18.0.0
+  checksum: 35e65bc06e57725f3e0f5ca942cb247c5a7f603313c06e604a4041783ec8bf82bc758759f625ab04f9381483729265b219a2c8109874e339d6fae3fd188a2002
+  languageName: node
+  linkType: hard
+
+"@stripe/stripe-js@npm:^1.46.0":
+  version: 1.46.0
+  resolution: "@stripe/stripe-js@npm:1.46.0"
+  checksum: e9f1a6c1abc1e9eb5cfe7d604066230078958d3ada61089912829b57d090e768d6310149f054c8da0a8c49d7a313c44418705f91174909c2d2313c9ded781be1
+  languageName: node
+  linkType: hard
+
 "@swc/helpers@npm:0.4.14":
   version: 0.4.14
   resolution: "@swc/helpers@npm:0.4.14"
@@ -1544,6 +1564,8 @@ __metadata:
     "@hookform/resolvers": ^2.9.10
     "@next/font": 13.1.1
     "@reduxjs/toolkit": ^1.9.1
+    "@stripe/react-stripe-js": ^1.16.3
+    "@stripe/stripe-js": ^1.46.0
     "@types/js-cookie": ^3.0.2
     "@types/node": 18.11.17
     "@types/react": 18.0.26
@@ -2231,7 +2253,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"prop-types@npm:^15.8.1":
+"prop-types@npm:^15.7.2, prop-types@npm:^15.8.1":
   version: 15.8.1
   resolution: "prop-types@npm:15.8.1"
   dependencies:

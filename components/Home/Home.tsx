@@ -70,10 +70,10 @@ export default function Home({ children }: { children: React.ReactNode }) {
     };
   }, [dispatch, userId, router]);
 
-  const isModalOpen = useAppSelector((state) => state.ui);
   return (
     <body>
-      {isModalOpen && <div className={styles.backdrop}></div>}
+      <div id="backdrop-root"></div>
+      <div id="overlay-root"></div>
       <Header />
       <main>{children}</main>
       <Footer />
