@@ -1,0 +1,28 @@
+.backdrop {
+  min-height: 100vh;
+  min-width: 100vw;
+  position: fixed;
+  background-color: rgba(0, 0, 0, 0.3);
+  z-index: 2;
+}
+
+.path {
+  stroke-dasharray: calc(242.776657104492 * 0.01px), 242.776657104492;
+  stroke-dashoffset: 0;
+  animation: anim 1.6s linear infinite;
+}
+
+@keyframes anim {
+  12.5% {
+    stroke-dasharray: calc(242.776657104492 * 0.14px) 242.776657104492;
+    stroke-dashoffset: calc(242.776657104492 * -0.11px);
+  }
+  43.75% {
+    stroke-dasharray: calc(242.776657104492 * 0.35px) 242.776657104492;
+    stroke-dashoffset: calc(242.776657104492 * -0.35px);
+  }
+  100% {
+    stroke-dasharray: calc(242.776657104492 * 0.01px), 242.776657104492;
+    stroke-dashoffset: calc(242.776657104492 * -0.99px);
+  }
+}

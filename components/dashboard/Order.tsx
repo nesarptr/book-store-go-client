@@ -8,7 +8,7 @@ export default function Order() {
   return (
     <main className={styles.main}>
       {!orders.length && <p>You did not place any order yet</p>}
-      {orders.slice(0, 1).map((order) => (
+      {orders.map((order) => (
         <OrderItem key={order.id} {...order} />
       ))}
     </main>

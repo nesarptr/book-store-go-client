@@ -1,0 +1,9 @@
+.main {
+  margin: 3rem auto;
+  max-width: max-content;
+  text-align: center;
+  background-color: whitesmoke;
+  box-shadow: rgba(0, 0, 0, 0.35) 0px 5px 15px;
+  padding: 4rem 6rem;
+  border-radius: 1rem;
+}
