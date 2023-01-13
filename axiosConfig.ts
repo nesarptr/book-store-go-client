@@ -11,6 +11,7 @@ instance.interceptors.request.use(
   function (config) {
     // Do something before request is sent
     const headers: AxiosHeaders = config.headers as AxiosHeaders;
+    config.withCredentials = true;
 
     if (Cookies.get("jwtoken") && !headers.has("Authorization")) {
       headers.set("Authorization", `Bearer ${Cookies.get("jwtoken")}`);
