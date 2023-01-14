@@ -29,7 +29,7 @@ export default function BookItem(book: Book) {
     } catch (err) {
       const error = err as AxiosError;
       if (error.response?.status === 401) {
-        router.push("/login");
+        router.replace("/login");
       }
     }
   };

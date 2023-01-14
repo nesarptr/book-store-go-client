@@ -49,7 +49,7 @@ export default function SignupForm() {
         email: user.email,
         password: user.password,
       });
-      router.push("/varify");
+      router.replace("/varify");
     } catch (err) {
       const error = err as AxiosError<{ message: string }>;
       console.log(error.response?.data.message);

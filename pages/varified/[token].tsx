@@ -22,7 +22,7 @@ export default function Page() {
             signal: controller.signal,
           }
         );
-        router.push("/login");
+        router.replace("/login");
       } catch (error) {
         console.log("push");
         console.log(error);

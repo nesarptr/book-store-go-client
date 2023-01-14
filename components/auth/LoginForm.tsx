@@ -43,7 +43,7 @@ export default function LoginForm() {
         password: userData.password,
       });
       Cookies.set("jwtoken", res.data.data.accessToken);
-      router.push("/");
+      router.replace("/");
       dispatch(
         login({
           isAuth: true,

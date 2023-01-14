@@ -12,8 +12,8 @@ export default function Page() {
   const router = useRouter();
   const dispatch = useAppDispatch();
   useEffect(() => {
+    router.replace("/login");
     axios.delete("/auth/logout").then(() => {
-      router.push("/login");
       Cookies.remove("jwtoken");
       dispatch(logout());
     });
