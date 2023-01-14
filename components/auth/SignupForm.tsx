@@ -44,7 +44,7 @@ export default function SignupForm() {
   const submitHandler = handleSubmit(async (user) => {
     try {
       await axios.post("/auth/signup", {
-        url: "http://localhost:3000/varified/",
+        url: "https://my-book-store.vercel.app/varified/",
         name: user.firstName + " " + user.lastName,
         email: user.email,
         password: user.password,
