@@ -9,13 +9,14 @@ import { logout } from "../../store/auth-slice";
 import { useEffect } from "react";
 
 export default function Page() {
-  Cookies.remove("jwtoken");
   const router = useRouter();
   const dispatch = useAppDispatch();
   useEffect(() => {
-    router.push("/login");
-    axios.delete("/auth/logout");
-    dispatch(logout());
+    axios.delete("/auth/logout").then(() => {
+      router.push("/login");
+      Cookies.remove("jwtoken");
+      dispatch(logout());
+    });
   }, [dispatch, router]);
   return <div></div>;
 }

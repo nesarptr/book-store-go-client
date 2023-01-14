@@ -43,6 +43,7 @@ export default function LoginForm() {
         password: userData.password,
       });
       Cookies.set("jwtoken", res.data.data.accessToken);
+      router.push("/");
       dispatch(
         login({
           isAuth: true,
@@ -51,7 +52,6 @@ export default function LoginForm() {
           userEmail: userData.email,
         })
       );
-      router.push("/");
     } catch (error) {
       console.log(error);
       // router.push("/error");
