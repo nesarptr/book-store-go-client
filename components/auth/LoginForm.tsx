@@ -13,6 +13,8 @@ import LineError from "../error/LineError";
 
 import styles from "./LoginForm.module.css";
 import inputStyles from "./input.module.css";
+import { useState } from "react";
+import { AxiosError } from "axios";
 
 const loginFormSchema = yup
   .object({
@@ -26,6 +28,7 @@ const loginFormSchema = yup
   .required("invalid value");
 
 export default function LoginForm() {
+  const [submitError, setSubmitError] = useState("");
   const router = useRouter();
   const dispatch = useAppDispatch();
 
@@ -54,7 +57,8 @@ export default function LoginForm() {
       );
     } catch (error) {
       console.error(error);
-      router.push("/error");
+      const err = error as AxiosError<{ message: string }>;
+      setSubmitError(err.response?.data.message as string);
     } finally {
       reset();
     }
@@ -85,6 +89,7 @@ export default function LoginForm() {
       <button type="submit" className={inputStyles.submit}>
         Sign in
       </button>
+      {submitError && <LineError message={submitError} />}
     </form>
   );
 }

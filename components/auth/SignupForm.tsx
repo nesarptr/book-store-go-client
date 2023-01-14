@@ -115,12 +115,14 @@ export default function SignupForm() {
         className={inputStyles.input}
         {...register("confirmPassword")}
       />
-      <label htmlFor="verify">Verify</label>
-      <input
-        type="checkbox"
-        id="verify"
-        onChange={() => setVerify((ps) => !ps)}
-      />
+      <div className={styles.check}>
+        <label htmlFor="verify">Verify</label>
+        <input
+          type="checkbox"
+          id="verify"
+          onChange={() => setVerify((ps) => !ps)}
+        />
+      </div>
       <button type="submit" className={inputStyles.submit}>
         Sign up
       </button>
