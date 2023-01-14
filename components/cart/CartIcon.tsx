@@ -39,7 +39,7 @@ export default function CartIcon() {
           }
         );
       } catch (error) {
-        console.log(error);
+        console.error(error);
       }
     })();
 

@@ -19,7 +19,7 @@ export default function Payment({ id }: { id: string }) {
         const { key } = data;
         setStripePromise(loadStripe(key));
       } catch (error) {
-        console.log(error);
+        console.error(error);
       }
     })();
   }, []);
@@ -31,7 +31,7 @@ export default function Payment({ id }: { id: string }) {
         const { clientSecret } = data;
         setClientSecret(clientSecret);
       } catch (error) {
-        console.log(error);
+        console.error(error);
       }
     })();
   }, [id]);

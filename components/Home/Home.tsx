@@ -46,7 +46,6 @@ export default function Home({ children }: { children: React.ReactNode }) {
     const controller = new AbortController();
     (async () => {
       const res = await axios.get("/shop/books", { signal: controller.signal });
-      console.log(res.data);
       const books = res.data.books.map((book: any) => {
         return {
           id: book._id,

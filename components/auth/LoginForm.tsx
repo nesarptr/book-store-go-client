@@ -53,8 +53,8 @@ export default function LoginForm() {
         })
       );
     } catch (error) {
-      console.log(error);
-      // router.push("/error");
+      console.error(error);
+      router.push("/error");
     } finally {
       reset();
     }

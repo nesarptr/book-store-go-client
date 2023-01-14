@@ -39,7 +39,7 @@ export default function Page() {
         });
         dispatch(populate(orders));
       } catch (error) {
-        console.log(error);
+        console.error(error);
       }
     })();
 

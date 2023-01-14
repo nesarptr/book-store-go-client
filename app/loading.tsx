@@ -1,4 +1,4 @@
-import LoadingBar from "../components/LoadingBar";
+import LoadingBar from "../components/UI/LoadingBar";
 
 export default function Loading() {
   return <LoadingBar />;

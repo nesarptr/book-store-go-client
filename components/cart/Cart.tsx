@@ -51,7 +51,7 @@ export default function Cart({
       dispatch(replaceCart([]));
       router.replace("/orders");
     } catch (error) {
-      console.log(error);
+      console.error(error);
     }
   };
 

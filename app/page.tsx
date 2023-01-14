@@ -1,5 +1,5 @@
 import Hero from "../components/Home/Hero";
-import LoadingBar from "../components/LoadingBar";
+import LoadingBar from "../components/UI/LoadingBar";
 
 import styles from "./page.module.css";
 

@@ -72,7 +72,7 @@ export default function BookForm({ adminData }: BookFormProps) {
   } = useForm({ resolver: yupResolver(signupFormSchema) });
 
   const submitHandler = handleSubmit(async (user) => {
-    console.log(user);
+    console.error(user);
     const data = new FormData();
     data.append("name", user.name);
     data.append("price", user.price);
@@ -81,7 +81,6 @@ export default function BookForm({ adminData }: BookFormProps) {
     try {
       if (adminData?.isAdmin) {
         const res = await axios.put(`/admin/book/${book?.id}`, data);
-        console.log(res.data);
         dispatch(
           updateBook({
             id: res.data._id,
@@ -94,7 +93,6 @@ export default function BookForm({ adminData }: BookFormProps) {
         );
       } else {
         const res = await axios.post("/admin/book", data);
-        console.log(res.data);
         dispatch(
           addBook({
             id: res.data.data._id,

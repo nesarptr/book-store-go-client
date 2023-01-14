@@ -52,8 +52,8 @@ export default function SignupForm() {
       router.replace("/varify");
     } catch (err) {
       const error = err as AxiosError<{ message: string }>;
-      console.log(error.response?.data.message);
-      // router.push("/error");
+      console.error(err);
+      router.push("/error");
     } finally {
       reset();
     }

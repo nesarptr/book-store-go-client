@@ -17,6 +17,7 @@ export default function NavBar() {
         <>
           <nav className={`${styles.nav} ${clicked ? styles.clicked : ""}`}>
             <ul
+              onClick={() => setClicked((pc) => !pc)}
               className={`${styles["nav-list"]} ${
                 clicked ? styles.clicked : ""
               }`}

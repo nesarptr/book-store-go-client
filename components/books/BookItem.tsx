@@ -25,7 +25,6 @@ export default function BookItem(book: Book) {
       const res = await axios.delete(`/admin/book/${book.id}`);
       // res.data.deleteData._id
       dispatch(deleteBook(res.data.deleteData._id));
-      console.log(res.data);
     } catch (err) {
       const error = err as AxiosError;
       if (error.response?.status === 401) {

@@ -24,8 +24,7 @@ export default function Page() {
         );
         router.replace("/login");
       } catch (error) {
-        console.log("push");
-        console.log(error);
+        console.error(error);
         router.push(`/error`);
       }
     })();
