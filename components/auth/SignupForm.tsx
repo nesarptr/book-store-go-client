@@ -1,5 +1,5 @@
 "use client";
-import type { AxiosError } from "axios";
+import { useState } from "react";
 import { useRouter } from "next/navigation";
 import { useForm } from "react-hook-form";
 import { yupResolver } from "@hookform/resolvers/yup";
@@ -33,6 +33,7 @@ const signupFormSchema = yup
   .required("invalid value");
 
 export default function SignupForm() {
+  const [verify, setVerify] = useState(false);
   const router = useRouter();
   const {
     register,
@@ -43,15 +44,18 @@ export default function SignupForm() {
 
   const submitHandler = handleSubmit(async (user) => {
     try {
+      const url = verify
+        ? "https://my-book-store.vercel.app/varified/"
+        : undefined;
       await axios.post("/auth/signup", {
-        url: "https://my-book-store.vercel.app/varified/",
+        url,
         name: user.firstName + " " + user.lastName,
         email: user.email,
         password: user.password,
       });
-      router.replace("/varify");
+      verify && router.replace("/varify");
+      !verify && router.replace("/login");
     } catch (err) {
-      const error = err as AxiosError<{ message: string }>;
       console.error(err);
       router.push("/error");
     } finally {
@@ -110,6 +114,12 @@ export default function SignupForm() {
         placeholder="Confirm Password"
         className={inputStyles.input}
         {...register("confirmPassword")}
+      />
+      <label htmlFor="verify">Verify</label>
+      <input
+        type="checkbox"
+        id="verify"
+        onChange={() => setVerify((ps) => !ps)}
       />
       <button type="submit" className={inputStyles.submit}>
         Sign up
