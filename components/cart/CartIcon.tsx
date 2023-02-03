@@ -27,13 +27,13 @@ export default function CartIcon() {
       try {
         const cart = books.map((book) => {
           return {
-            bookId: book.book.id,
+            id: book.book.id,
             quantity: book.quantity,
           };
         });
-        await axios.post(
+        await axios.put(
           "/shop/cart",
-          { cart: cart },
+          { books: cart },
           {
             signal: controller.signal,
           }

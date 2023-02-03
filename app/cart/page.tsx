@@ -10,19 +10,21 @@ export default function Page() {
 
   (async () => {
     const res = await axios.get("/shop/cart");
-    const bookData = res.data.map(({ book, quantity }: any) => {
-      return {
-        book: {
-          id: book._id,
-          name: book.name,
-          owner: book.owner,
-          price: book.price,
-          imgURL: book.imgURL,
-          description: book.description,
-        },
-        quantity,
-      };
-    });
+    const { books } = res.data;
+    const bookData =
+      books?.map(({ book, quantity }: any) => {
+        return {
+          book: {
+            id: book.ID,
+            name: book.title,
+            owner: book.owner,
+            price: book.price,
+            imgURL: `https://go-book-store.onrender.com/${book.imgUrl}`,
+            description: book.description,
+          },
+          quantity,
+        };
+      }) || [];
     dispatch(replaceCart(bookData));
   })();
 

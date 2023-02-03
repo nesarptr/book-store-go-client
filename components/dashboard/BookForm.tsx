@@ -5,12 +5,13 @@ import { yupResolver } from "@hookform/resolvers/yup";
 import * as yup from "yup";
 
 import { useAppDispatch, useAppSelector } from "../../store/hook";
-import { addBook, updateBook } from "../../store/book-slice";
+import { addBook, Book, updateBook } from "../../store/book-slice";
 import axios from "../../axiosConfig";
 import LineError from "../error/LineError";
 
 import styles from "./BookForm.module.css";
 import inputStyles from "../auth/input.module.css";
+import { useState } from "react";
 
 type BookFormProps = {
   adminData?: { isAdmin: boolean; id: string };
@@ -60,9 +61,10 @@ const signupFormSchema = yup
 
 export default function BookForm({ adminData }: BookFormProps) {
   const router = useRouter();
+  const [disabled, setDisabled] = useState(false);
   const dispatch = useAppDispatch();
   const book = useAppSelector((state) =>
-    state.book.books.find((book) => book.id === adminData?.id)
+    state.book.books.find((book) => book.id == adminData?.id)
   );
   const {
     register,
@@ -72,7 +74,8 @@ export default function BookForm({ adminData }: BookFormProps) {
   } = useForm({ resolver: yupResolver(signupFormSchema) });
 
   const submitHandler = handleSubmit(async (user) => {
-    console.error(user);
+    setDisabled(true);
+    router.push("/");
     const data = new FormData();
     data.append("name", user.name);
     data.append("price", user.price);
@@ -83,10 +86,10 @@ export default function BookForm({ adminData }: BookFormProps) {
         const res = await axios.put(`/admin/book/${book?.id}`, data);
         dispatch(
           updateBook({
-            id: res.data._id,
+            id: res.data.ID,
             description: res.data.description,
-            name: res.data.name,
-            imgURL: `https://manage-inventory.onrender.com/${res.data.imgURL}`,
+            name: res.data.title,
+            imgURL: `https://go-book-store.onrender.com/${res.data.imgUrl}`,
             price: res.data.price,
             owner: res.data.owner,
           })
@@ -95,22 +98,22 @@ export default function BookForm({ adminData }: BookFormProps) {
         const res = await axios.post("/admin/book", data);
         dispatch(
           addBook({
-            id: res.data.data._id,
-            description: res.data.data.description,
-            name: res.data.data.name,
-            imgURL: `https://manage-inventory.onrender.com/${res.data.data.imgURL}`,
-            price: res.data.data.price,
-            owner: res.data.data.owner,
+            id: res.data.ID,
+            description: res.data.description,
+            name: res.data.title,
+            imgURL: `https://go-book-store.onrender.com/${res.data.imgUrl}`,
+            price: res.data.price,
+            owner: res.data.owner,
           })
         );
       }
-      // router.push("/");
     } catch (err) {
       const error = err as AxiosError;
       if (error.response?.status === 401) {
         router.replace("/login");
       }
     } finally {
+      setDisabled(false);
       reset();
     }
   });
@@ -160,7 +163,11 @@ export default function BookForm({ adminData }: BookFormProps) {
           className={inputStyles.input}
           {...register("image")}
         />
-        <button type="submit" className={inputStyles.submit}>
+        <button
+          type="submit"
+          className={inputStyles.submit}
+          disabled={disabled}
+        >
           {adminData?.isAdmin ? "Update Book" : "Add Book"}
         </button>
       </form>

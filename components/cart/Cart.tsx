@@ -49,9 +49,10 @@ export default function Cart({
     try {
       await axios.post("/shop/order");
       dispatch(replaceCart([]));
-      router.replace("/orders");
     } catch (error) {
       console.error(error);
+    } finally {
+      router.replace("/orders");
     }
   };
 

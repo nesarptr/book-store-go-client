@@ -18,13 +18,12 @@ export default function BookItem(book: Book) {
   const addToCartHandler: MouseEventHandler<HTMLButtonElement> = () => {
     dispatch(addToCart(book));
   };
-  const isAdmin = userId === book.owner;
+  const isAdmin = userId == book.owner;
 
   const deleteHandler: MouseEventHandler<HTMLButtonElement> = async () => {
     try {
       const res = await axios.delete(`/admin/book/${book.id}`);
-      // res.data.deleteData._id
-      dispatch(deleteBook(res.data.deleteData._id));
+      dispatch(deleteBook(res.data.ID));
     } catch (err) {
       const error = err as AxiosError;
       if (error.response?.status === 401) {

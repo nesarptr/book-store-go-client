@@ -4,7 +4,6 @@ type auth = {
   userEmail?: string;
   userId: string;
   jwtoken: string;
-  varifyToken?: string;
   isAuth: boolean;
 };
 
@@ -13,7 +12,6 @@ const initialState: auth = {
   isAuth: false,
   userId: "",
   userEmail: "",
-  varifyToken: "",
 };
 
 const authSlice = createSlice({
@@ -30,16 +28,9 @@ const authSlice = createSlice({
       state.userId = "";
       state.userEmail = "";
     },
-    token: (
-      state,
-      { payload }: PayloadAction<{ token: string; id: string }>
-    ) => {
-      state.varifyToken = payload.token;
-      state.userId = payload.id;
-    },
   },
 });
 
-export const { login, logout, token } = authSlice.actions;
+export const { login, logout } = authSlice.actions;
 
 export default authSlice.reducer;

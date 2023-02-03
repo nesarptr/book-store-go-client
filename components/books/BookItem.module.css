@@ -17,6 +17,7 @@
 .li img {
   object-fit: cover;
   border-radius: 5%;
+  width: auto;
   margin-bottom: 1.5rem;
 }
 

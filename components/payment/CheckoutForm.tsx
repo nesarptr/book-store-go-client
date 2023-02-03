@@ -38,7 +38,7 @@ export default function CheckoutForm() {
     if (error?.type === "card_error" || error?.type === "validation_error") {
       setMessage(error?.message as string);
     } else if (paymentIntent && paymentIntent.status === "succeeded") {
-      axios.put(`/shop/pay/${paymentIntent.id}`).catch((e) => console.error(e));
+      axios.put(`/pay/${paymentIntent.id}`).catch((e) => console.error(e));
       router.push("/orders");
     } else {
       setMessage("An unexpected error occured.");

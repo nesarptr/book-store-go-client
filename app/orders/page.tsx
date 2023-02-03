@@ -17,24 +17,24 @@ export default function Page() {
         const res = await axios.get("/shop/order", {
           signal: controller.signal,
         });
-        const orders = res.data.orders.map((order: any) => {
+        const orders = res.data.map((order: any) => {
           return {
-            id: order.id,
+            id: order.ID,
             cart: order.books.map((book: any) => {
               return {
                 book: {
-                  id: book.book._id,
-                  name: book.book.name,
-                  price: book.book.price,
-                  imgURL: book.book.imgURL,
-                  description: book.book.description,
-                  owner: book.book.owner,
+                  id: book.bookId,
+                  name: book.title,
+                  price: book.price,
+                  imgURL: `https://go-book-store.onrender.com/${book.imgUrl}`,
+                  description: book.description,
+                  owner: book.owner,
                 },
                 quantity: book.quantity,
               };
             }),
-            totalPrice: order.price,
-            isPaid: order.status,
+            totalPrice: order.totalPrice,
+            isPaid: order.isPaid,
           };
         });
         dispatch(populate(orders));

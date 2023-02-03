@@ -15,7 +15,7 @@ export default function Payment({ id }: { id: string }) {
   useEffect(() => {
     (async () => {
       try {
-        const { data } = await axios.get("/stp-key");
+        const { data } = await axios.get("/pay/pk");
         const { key } = data;
         setStripePromise(loadStripe(key));
       } catch (error) {
@@ -27,7 +27,7 @@ export default function Payment({ id }: { id: string }) {
   useEffect(() => {
     (async () => {
       try {
-        const { data } = await axios.post(`/shop/pay/${id}`);
+        const { data } = await axios.post(`/pay/${id}`);
         const { clientSecret } = data;
         setClientSecret(clientSecret);
       } catch (error) {

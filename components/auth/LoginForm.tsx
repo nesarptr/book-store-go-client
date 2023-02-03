@@ -6,6 +6,7 @@ import axios from "../../axiosConfig";
 import { useForm } from "react-hook-form";
 import { yupResolver } from "@hookform/resolvers/yup";
 import * as yup from "yup";
+import jwt_decode from "jwt-decode";
 
 import { useAppDispatch } from "../../store/hook";
 import { login } from "../../store/auth-slice";
@@ -28,6 +29,7 @@ const loginFormSchema = yup
   .required("invalid value");
 
 export default function LoginForm() {
+  const [disabled, setDisabled] = useState(false);
   const [submitError, setSubmitError] = useState("");
   const router = useRouter();
   const dispatch = useAppDispatch();
@@ -40,19 +42,21 @@ export default function LoginForm() {
   } = useForm({ resolver: yupResolver(loginFormSchema) });
 
   const loginHandler = handleSubmit(async (userData) => {
+    setDisabled(true);
+    reset();
     try {
-      const res = await axios.post("/auth/login", {
+      const res = await axios.post("/auth/signin", {
         email: userData.email,
         password: userData.password,
       });
-      Cookies.set("jwtoken", res.data.data.accessToken);
-      router.replace("/");
+      Cookies.set("jwtoken", res.data.token);
+      const decoded = jwt_decode(res.data.token) as any;
       dispatch(
         login({
           isAuth: true,
-          jwtoken: res.data.data.accessToken,
-          userId: res.data.data.userId,
-          userEmail: userData.email,
+          jwtoken: res.data.token,
+          userId: decoded.id,
+          userEmail: decoded.email,
         })
       );
     } catch (error) {
@@ -60,7 +64,8 @@ export default function LoginForm() {
       const err = error as AxiosError<{ message: string }>;
       setSubmitError(err.response?.data.message as string);
     } finally {
-      reset();
+      setDisabled(false);
+      router.replace("/");
     }
   });
 
@@ -86,7 +91,7 @@ export default function LoginForm() {
         id="password"
         {...register("password")}
       />
-      <button type="submit" className={inputStyles.submit}>
+      <button type="submit" className={inputStyles.submit} disabled={disabled}>
         Sign in
       </button>
       {submitError && <LineError message={submitError} />}

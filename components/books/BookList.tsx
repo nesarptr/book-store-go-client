@@ -10,7 +10,7 @@ export default function BookList({
 }) {
   const userId = useAppSelector((state) => state.auth.userId);
   const books = useAppSelector((state) => state.book.books).filter((book) =>
-    shouldFilter ? book.owner === userId : true
+    shouldFilter ? book.owner == userId : true
   );
   return (
     <main className={styles.main}>

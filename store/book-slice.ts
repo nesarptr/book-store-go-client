@@ -25,7 +25,7 @@ const bookSlice = createSlice({
     },
     updateBook: (state, { payload: updatedBook }: PayloadAction<Book>) => {
       const bookInd = state.books.findIndex(
-        (book) => book.id === updatedBook.id
+        (book) => book.id == updatedBook.id
       );
       if (bookInd !== -1) {
         state.books[bookInd] = updatedBook;

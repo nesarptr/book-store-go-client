@@ -1,5 +1,6 @@
 import { useRouter } from "next/navigation";
 import Cookies from "js-cookie";
+import jwt_decode from "jwt-decode";
 
 import axios from "../../axiosConfig";
 import Header from "../header/Header";
@@ -8,7 +9,6 @@ import { useAppSelector, useAppDispatch } from "../../store/hook";
 import { addBooks } from "../../store/book-slice";
 import { login } from "../../store/auth-slice";
 
-import styles from "./Home.module.css";
 import { useEffect } from "react";
 import { AxiosError } from "axios";
 
@@ -20,15 +20,17 @@ export default function Home({ children }: { children: React.ReactNode }) {
   useEffect(() => {
     const controller = new AbortController();
     (async () => {
-      const res = await axios.get("/auth/isAuth", {
+      const res = await axios.get("/auth/jwt", {
         signal: controller.signal,
       });
+      Cookies.set("jwtoken", res.data.token);
+      const decoded = jwt_decode(res.data.token) as any;
       dispatch(
         login({
           isAuth: true,
-          jwtoken: Cookies.get("jwtoken") as string,
-          userId: res.data.userId,
-          userEmail: res.data.email,
+          jwtoken: res.data.token,
+          userId: decoded.id,
+          userEmail: decoded.email,
         })
       );
     })().catch((err) => {
@@ -46,13 +48,13 @@ export default function Home({ children }: { children: React.ReactNode }) {
     const controller = new AbortController();
     (async () => {
       const res = await axios.get("/shop/books", { signal: controller.signal });
-      const books = res.data.books.map((book: any) => {
+      const books = res.data.map((book: any) => {
         return {
-          id: book._id,
+          id: book.ID,
           owner: book.owner,
-          name: book.name,
+          name: book.title,
           price: book.price,
-          imgURL: `https://manage-inventory.onrender.com/${book.imgURL}`,
+          imgURL: `https://go-book-store.onrender.com/${book.imgUrl}`,
           description: book.description,
         };
       });

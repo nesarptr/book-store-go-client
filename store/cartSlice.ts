@@ -20,7 +20,7 @@ const cartSlice = createSlice({
     },
     addToCart: (state, { payload: book }: PayloadAction<Book>) => {
       const bookInd = state.bookCart.findIndex(
-        (cart) => cart.book.id === book.id
+        (cart) => cart.book.id == book.id
       );
       if (bookInd === -1) {
         state.bookCart.push({
@@ -32,7 +32,7 @@ const cartSlice = createSlice({
       }
     },
     removeFromCart: (state, { payload: id }: PayloadAction<string>) => {
-      const bookInd = state.bookCart.findIndex((cart) => cart.book.id === id);
+      const bookInd = state.bookCart.findIndex((cart) => cart.book.id == id);
       if (bookInd !== -1) {
         if (state.bookCart[bookInd].quantity > 1) {
           state.bookCart[bookInd].quantity--;

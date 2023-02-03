@@ -2,10 +2,8 @@ import axios, { AxiosError, AxiosHeaders } from "axios";
 import Cookies from "js-cookie";
 
 const instance = axios.create({
-  baseURL: "https://manage-inventory.onrender.com/api/v1",
+  baseURL: "https://go-book-store.onrender.com",
 });
-
-instance.defaults.withCredentials = true;
 
 // Add a request interceptor
 instance.interceptors.request.use(

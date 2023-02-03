@@ -1,4 +1,4 @@
-import { MouseEventHandler, useEffect } from "react";
+import { MouseEventHandler } from "react";
 import Link from "next/link";
 import Image from "next/image";
 
@@ -11,7 +11,7 @@ import { Book } from "../../store/book-slice";
 export default function BookDetail({ id }: { id: string }) {
   const dispatch = useAppDispatch();
   const book = useAppSelector((state) =>
-    state.book.books.find((book) => book.id === id)
+    state.book.books.find((book) => book.id == id)
   );
 
   const addToCartHandler: MouseEventHandler<HTMLButtonElement> = () => {

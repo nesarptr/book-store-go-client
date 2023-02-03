@@ -1,8 +1,5 @@
-import Cookies from "js-cookie";
 import { NextResponse } from "next/server";
 import type { NextRequest } from "next/server";
-
-import axios from "./axiosConfig";
 
 export async function middleware(request: NextRequest) {
   const response = NextResponse.next();
@@ -13,10 +10,7 @@ export async function middleware(request: NextRequest) {
 
   if (
     request.cookies.has("jwtoken") &&
-    (request.url.endsWith("/login") ||
-      request.url.endsWith("/signup") ||
-      request.url.endsWith("/varify") ||
-      request.nextUrl.pathname.startsWith("/varified"))
+    (request.url.endsWith("/login") || request.url.endsWith("/signup"))
   ) {
     return NextResponse.redirect(new URL("/", request.url));
   }
@@ -25,9 +19,7 @@ export async function middleware(request: NextRequest) {
     !request.cookies.has("jwtoken") &&
     !request.url.endsWith("/login") &&
     !request.url.endsWith("/signup") &&
-    !request.url.endsWith("/varify") &&
-    !request.url.startsWith("/error") &&
-    !request.nextUrl.pathname.startsWith("/varified")
+    !request.url.startsWith("/error")
   ) {
     return NextResponse.redirect(new URL("/login", request.url));
   }

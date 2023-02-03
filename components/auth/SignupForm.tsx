@@ -1,5 +1,4 @@
 "use client";
-import { useState } from "react";
 import { useRouter } from "next/navigation";
 import { useForm } from "react-hook-form";
 import { yupResolver } from "@hookform/resolvers/yup";
@@ -10,6 +9,7 @@ import LineError from "../error/LineError";
 
 import styles from "./SignupFrom.module.css";
 import inputStyles from "./input.module.css";
+import { useState } from "react";
 
 const signupFormSchema = yup
   .object({
@@ -17,8 +17,8 @@ const signupFormSchema = yup
       .string()
       .trim()
       .required("First Name is required")
-      .min(2, "First Name has to be atleast 2 character long"),
-    lastName: yup.string().trim().required("Last Name is required"),
+      .min(3, "First Name has to be atleast 3 character long"),
+    lastName: yup.string(),
     email: yup.string().trim().required("Email is required").email(),
     password: yup
       .string()
@@ -33,7 +33,7 @@ const signupFormSchema = yup
   .required("invalid value");
 
 export default function SignupForm() {
-  const [verify, setVerify] = useState(false);
+  const [disabled, setDisabled] = useState(false);
   const router = useRouter();
   const {
     register,
@@ -43,23 +43,21 @@ export default function SignupForm() {
   } = useForm({ resolver: yupResolver(signupFormSchema) });
 
   const submitHandler = handleSubmit(async (user) => {
+    setDisabled(true);
+    reset();
+
     try {
-      const url = verify
-        ? "https://my-book-store.vercel.app/varified/"
-        : undefined;
       await axios.post("/auth/signup", {
-        url,
         name: user.firstName + " " + user.lastName,
         email: user.email,
         password: user.password,
       });
-      verify && router.replace("/varify");
-      !verify && router.replace("/login");
     } catch (err) {
       console.error(err);
       router.push("/error");
     } finally {
-      reset();
+      setDisabled(false);
+      router.replace("/login");
     }
   });
 
@@ -115,15 +113,7 @@ export default function SignupForm() {
         className={inputStyles.input}
         {...register("confirmPassword")}
       />
-      <div className={styles.check}>
-        <label htmlFor="verify">Verify</label>
-        <input
-          type="checkbox"
-          id="verify"
-          onChange={() => setVerify((ps) => !ps)}
-        />
-      </div>
-      <button type="submit" className={inputStyles.submit}>
+      <button type="submit" className={inputStyles.submit} disabled={disabled}>
         Sign up
       </button>
     </form>
