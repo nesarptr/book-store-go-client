@@ -1,11 +1,12 @@
+import { MouseEventHandler, useEffect } from "react";
 import { useRouter } from "next/navigation";
+
 import { useAppSelector, useAppDispatch } from "../../store/hook";
 import { replaceCart } from "../../store/cartSlice";
 import CartItem from "./CartItem";
 import axios from "../../axiosConfig";
 
 import styles from "./Cart.module.css";
-import { MouseEventHandler } from "react";
 import { BookCart } from "../../store/cartSlice";
 
 export default function Cart({
@@ -13,7 +14,14 @@ export default function Cart({
 }: {
   orderBooks?: { books: BookCart[]; totalPrice: number };
 }) {
+  const isAuth = useAppSelector((state) => state.auth.isAuth);
   const router = useRouter();
+
+  useEffect(() => {
+    if (!isAuth) {
+      router.replace("/login");
+    }
+  }, [isAuth, router]);
   const dispatch = useAppDispatch();
   const books = useAppSelector((state) => state.cart.bookCart);
   if (orderBooks) {

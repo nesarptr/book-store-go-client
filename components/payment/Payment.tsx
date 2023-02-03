@@ -1,9 +1,10 @@
 import { useEffect, useState } from "react";
-
+import { useRouter } from "next/navigation";
 import { Elements } from "@stripe/react-stripe-js";
 import CheckoutForm from "./CheckoutForm";
 import { loadStripe, Stripe } from "@stripe/stripe-js";
 
+import { useAppSelector } from "../../store/hook";
 import axios from "../../axiosConfig";
 
 import styles from "./Payment.module.css";
@@ -11,6 +12,15 @@ import styles from "./Payment.module.css";
 export default function Payment({ id }: { id: string }) {
   const [stripePromise, setStripePromise] = useState<Promise<Stripe | null>>();
   const [clientSecret, setClientSecret] = useState<string>();
+
+  const isAuth = useAppSelector((state) => state.auth.isAuth);
+  const router = useRouter();
+
+  useEffect(() => {
+    if (!isAuth) {
+      router.replace("/login");
+    }
+  }, [isAuth, router]);
 
   useEffect(() => {
     (async () => {

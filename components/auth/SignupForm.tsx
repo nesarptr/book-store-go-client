@@ -52,12 +52,12 @@ export default function SignupForm() {
         email: user.email,
         password: user.password,
       });
+      router.replace("/login");
     } catch (err) {
       console.error(err);
       router.push("/error");
     } finally {
       setDisabled(false);
-      router.replace("/login");
     }
   });
 

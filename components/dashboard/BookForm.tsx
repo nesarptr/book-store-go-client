@@ -1,3 +1,4 @@
+import { useState, useEffect } from "react";
 import { useRouter } from "next/navigation";
 import { AxiosError } from "axios";
 import { useForm } from "react-hook-form";
@@ -11,7 +12,6 @@ import LineError from "../error/LineError";
 
 import styles from "./BookForm.module.css";
 import inputStyles from "../auth/input.module.css";
-import { useState } from "react";
 
 type BookFormProps = {
   adminData?: { isAdmin: boolean; id: string };
@@ -60,7 +60,14 @@ const signupFormSchema = yup
   .required("invalid value");
 
 export default function BookForm({ adminData }: BookFormProps) {
+  const isAuth = useAppSelector((state) => state.auth.isAuth);
   const router = useRouter();
+
+  useEffect(() => {
+    if (!isAuth) {
+      router.replace("/login");
+    }
+  }, [isAuth, router]);
   const [disabled, setDisabled] = useState(false);
   const dispatch = useAppDispatch();
   const book = useAppSelector((state) =>

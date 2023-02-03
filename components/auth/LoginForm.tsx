@@ -51,6 +51,7 @@ export default function LoginForm() {
       });
       Cookies.set("jwtoken", res.data.token);
       const decoded = jwt_decode(res.data.token) as any;
+      router.replace("/");
       dispatch(
         login({
           isAuth: true,
@@ -65,7 +66,6 @@ export default function LoginForm() {
       setSubmitError(err.response?.data.message as string);
     } finally {
       setDisabled(false);
-      router.replace("/");
     }
   });
 

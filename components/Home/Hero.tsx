@@ -1,9 +1,21 @@
 import Link from "next/link";
 import Image from "next/image";
+import { useRouter } from "next/navigation";
+import { useEffect } from "react";
+
+import { useAppSelector } from "../../store/hook";
 
 import styles from "./Hero.module.css";
 
 export default function Hero() {
+  const isAuth = useAppSelector((state) => state.auth.isAuth);
+  const router = useRouter();
+
+  useEffect(() => {
+    if (!isAuth) {
+      router.replace("/login");
+    }
+  }, [isAuth, router]);
   return (
     <section className={styles.hero}>
       <div>
