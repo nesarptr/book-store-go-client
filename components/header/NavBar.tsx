@@ -1,14 +1,25 @@
 "use client";
 import Link from "next/link";
-import { useState } from "react";
+import { MouseEventHandler, useState } from "react";
+import { useRouter } from "next/navigation";
+import Cookies from "js-cookie";
 
 import CartIcon from "../cart/CartIcon";
-import { useAppSelector } from "../../store/hook";
+import { logout } from "../../store/auth-slice";
+import { useAppDispatch, useAppSelector } from "../../store/hook";
 
 import styles from "./NavBar.module.css";
 
 export default function NavBar() {
+  const dispatch = useAppDispatch();
+  const router = useRouter();
   const isAuth = useAppSelector((state) => state.auth.isAuth);
+
+  const logoutHandler: MouseEventHandler = () => {
+    Cookies.remove("jwtoken");
+    dispatch(logout());
+    router.replace("/login");
+  };
 
   const [clicked, setClicked] = useState(false);
   return (
@@ -47,8 +58,8 @@ export default function NavBar() {
                   My Orders
                 </Link>
               </li>
-              <li>
-                <Link href={"/logout"}>Logout</Link>
+              <li onClick={logoutHandler}>
+                <Link href={"/login"}>Logout</Link>
               </li>
             </ul>
           </nav>
