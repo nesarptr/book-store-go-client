@@ -1,3 +1,5 @@
+"use client";
+
 import Hero from "../components/Home/Hero";
 
 import styles from "./page.module.css";
