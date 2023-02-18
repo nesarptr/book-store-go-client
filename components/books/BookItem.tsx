@@ -2,7 +2,7 @@ import { AxiosError } from "axios";
 import Image from "next/image";
 import Link from "next/link";
 import { useRouter } from "next/navigation";
-import { MouseEventHandler, useEffect } from "react";
+import { MouseEventHandler } from "react";
 
 import axios from "../../axiosConfig";
 import { Book, deleteBook } from "../../store/book-slice";

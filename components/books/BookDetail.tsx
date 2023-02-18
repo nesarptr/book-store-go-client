@@ -10,14 +10,6 @@ import styles from "../Home/Hero.module.css";
 import { Book } from "../../store/book-slice";
 
 export default function BookDetail({ id }: { id: string }) {
-  const isAuth = useAppSelector((state) => state.auth.isAuth);
-  const router = useRouter();
-
-  useEffect(() => {
-    if (!isAuth) {
-      router.replace("/login");
-    }
-  }, [isAuth, router]);
   const dispatch = useAppDispatch();
   const book = useAppSelector((state) =>
     state.book.books.find((book) => book.id == id)
